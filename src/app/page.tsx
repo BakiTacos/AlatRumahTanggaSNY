@@ -36,6 +36,33 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [emblaApi]);
 
+  const categories = [
+    {
+      title: 'Kitchen Appliances',
+      description: 'Modern solutions for your cooking needs',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      alt: 'Kitchen Appliances',
+    },
+    {
+      title: 'Living Room',
+      description: 'Comfort and style for your living space',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      alt: 'Living Room Appliances',
+    },
+    {
+      title: 'Bedroom',
+      description: 'Essential appliances for peaceful rest',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      alt: 'Bedroom Appliances',
+    },
+    {
+      title: 'Bathroom',
+      description: 'Modern bathroom solutions',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      alt: 'Bathroom Appliances',
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-[#FFFFFF] pt-16">
       {/* Hero Carousel Section */}
@@ -88,12 +115,14 @@ export default function Home() {
               <p className="text-lg">SNY has been providing quality home appliances since 2010. We pride ourselves on offering durable, efficient, and stylish products that enhance your daily life.</p>
               <p className="text-lg">Our commitment to excellence and customer satisfaction has made us a trusted name in the industry.</p>
             </div>
-            <div className="relative h-[400px]">
+            <div className=" relative h-[400px] w-full">
               <Image
-                src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
+                src="https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png"
                 alt="About SNY Home Appliances"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover rounded-lg"
+                priority
               />
             </div>
           </div>
@@ -103,75 +132,32 @@ export default function Home() {
         <section className="mb-20">
           <h2 className="text-3xl font-bold mb-12 text-center">Our Product Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Kitchen Appliances */}
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="relative h-64 w-full">
-                <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
-                  alt="Kitchen Appliances"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
+            {categories.map((category, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="relative h-64 w-full">
+                  <Image
+                    src={category.image}
+                    alt={category.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20">
+                    <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
+                    <p className="text-sm opacity-90">{category.description}</p>
+                  </div>
+                </div>
               </div>
-              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 className="text-xl font-semibold mb-2">Kitchen Appliances</h3>
-                <p className="text-sm opacity-90">Modern solutions for your cooking needs</p>
-              </div>
-            </div>
-
-            {/* Living Room */}
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="relative h-64 w-full">
-                <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
-                  alt="Living Room Appliances"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 className="text-xl font-semibold mb-2">Living Room</h3>
-                <p className="text-sm opacity-90">Comfort and style for your living space</p>
-              </div>
-            </div>
-
-            {/* Bedroom */}
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="relative h-64 w-full">
-                <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
-                  alt="Bedroom Appliances"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 className="text-xl font-semibold mb-2">Bedroom</h3>
-                <p className="text-sm opacity-90">Essential appliances for peaceful rest</p>
-              </div>
-            </div>
-
-            {/* Bathroom */}
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="relative h-64 w-full">
-                <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
-                  alt="Bathroom Appliances"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-30 transition-all duration-300"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                <h3 className="text-xl font-semibold mb-2">Bathroom</h3>
-                <p className="text-sm opacity-90">Modern bathroom solutions</p>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
+
+
+
       </main>
     </div>
   );
