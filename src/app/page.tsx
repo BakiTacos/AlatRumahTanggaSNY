@@ -5,42 +5,50 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect } from "react";
 
 export default function Home() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
-
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    duration: 10, // ✅ smoother scroll
+    // You can add `duration` or `dragFree` if needed
+  });
   const scrollPrev = useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollPrev();
+    if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
+  
 
   const scrollNext = useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollNext();
+    if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-
-  const autoplay = useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollNext();
-  }, [emblaApi]);
-
+  
+  // ✅ Autoplay with scroll check
   useEffect(() => {
+    if (!emblaApi) return;
+  
+    const autoplay = () => {
+      if (!emblaApi.canScrollNext()) {
+        emblaApi.scrollTo(0); // reset to start if needed (optional)
+      } else {
+        emblaApi.scrollNext();
+      }
+    };
+  
     const timer = setInterval(autoplay, 5000);
+  
     return () => clearInterval(timer);
-  }, [autoplay]);
-
+  }, [emblaApi]);
 
   return (
     <div className="min-h-screen bg-[#FFFFFF] pt-16">
       {/* Hero Carousel Section */}
       <section className="relative h-[600px] overflow-hidden">
         <div className="embla overflow-hidden" ref={emblaRef}>
-          <div className="flex h-full transition-transform duration-300">
+          <div className="flex h-full">
           {[
-            "https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true",
-            "https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%202.png?raw=true",
-            "https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%204.png?raw=true",
-            "https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%203.png?raw=true"
+            "https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png",
+            "https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%202.png",
+            "https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%203.png",
+            "https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%204.png"
           ].map((imageUrl, index) => (
-            <div key={index} className="flex-[0_0_100%] relative h-full">
+            <div key={index} className="flex-[0_0_100%] relative h-[600px]">
               <Image 
                 src={imageUrl}
                 alt={`Featured Product ${index + 1}`}
@@ -77,12 +85,12 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-8 text-center">About Us</h2>
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-4">
-              <p className="text-lg">SNY has been providing quality home appliances since 2019. We pride ourselves on offering durable, efficient, and stylish products that enhance your daily life.</p>
+              <p className="text-lg">SNY has been providing quality home appliances since 2010. We pride ourselves on offering durable, efficient, and stylish products that enhance your daily life.</p>
               <p className="text-lg">Our commitment to excellence and customer satisfaction has made us a trusted name in the industry.</p>
             </div>
             <div className="relative h-[400px]">
               <Image
-                src="/about-us.jpg"
+                src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
                 alt="About SNY Home Appliances"
                 fill
                 className="object-cover rounded-lg"
@@ -92,14 +100,14 @@ export default function Home() {
         </section>
 
         {/* Product Categories Section */}
-        <section id="catalogue" className="mb-20">
+        <section className="mb-20">
           <h2 className="text-3xl font-bold mb-12 text-center">Our Product Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Kitchen Appliances */}
             <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 w-full">
                 <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Categories/Kitchen.png?raw=true"
+                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
                   alt="Kitchen Appliances"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -116,7 +124,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 w-full">
                 <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Categories/Living%20Room.png?raw=true"
+                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
                   alt="Living Room Appliances"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -133,7 +141,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 w-full">
                 <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Categories/Bedroom.png?raw=true"
+                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
                   alt="Bedroom Appliances"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -150,7 +158,7 @@ export default function Home() {
             <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 w-full">
                 <Image
-                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Categories/Bathroom.png?raw=true"
+                  src="https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Carousel/Banner%201.png?raw=true"
                   alt="Bathroom Appliances"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-300"

@@ -92,12 +92,6 @@ export default function Navbar() {
                 href="#footer"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                Catalogue
-              </a>
-              <a
-                href="#footer"
-                className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
                 Contact
               </a>
             </div>

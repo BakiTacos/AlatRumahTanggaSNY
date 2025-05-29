@@ -7,7 +7,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'github.com',
         pathname: '/BakiTacos/image-host/**'
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        pathname: '/BakiTacos/image-host/**',
+      },
     ]
   }
 };
