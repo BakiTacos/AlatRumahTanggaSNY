@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Alat Rumah Tangga SNY - Quality Home Appliances',
-  description: 'Discover our premium selection of home appliances. Quality products for your home needs.',
+  description: 'Toko alat rumah tangga lengkap dan terpercaya. Temukan peralatan rumah tangga berkualitas untuk kebutuhan rumah Anda. Discover premium home appliances.',
   keywords: 'home appliances, kitchen appliances, household items, home equipment'
 };
 
