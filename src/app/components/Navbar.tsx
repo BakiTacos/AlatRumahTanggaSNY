@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Navbar() {
-  const [homeDropdown, setHomeDropdown] = useState(false);
   const [productsDropdown, setProductsDropdown] = useState(false);
 
   return (
