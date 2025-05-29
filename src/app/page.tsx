@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FFFFFF] pt-16">
       {/* Hero Carousel Section */}
-      <section className="relative h-[600px] overflow-hidden">
+      <section id="home" className="relative h-[600px] overflow-hidden">
         <div className="embla overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
           {[

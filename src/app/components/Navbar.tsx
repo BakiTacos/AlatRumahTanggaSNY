@@ -13,38 +13,18 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-2xl font-bold text-[#333333] hover:text-[#A5D6A7] transition-colors">
+              <Link href="#home" className="text-2xl font-bold text-[#333333] hover:text-[#A5D6A7] transition-colors">
                 SNY
               </Link>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-1">
               <div className="relative group">
-                <button
-                  onMouseEnter={() => setHomeDropdown(true)}
-                  onMouseLeave={() => setHomeDropdown(false)}
-                  className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center"
-                >
-                  Home
-                  <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {homeDropdown && (
-                  <div
-                    className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
-                    onMouseEnter={() => setHomeDropdown(true)}
-                    onMouseLeave={() => setHomeDropdown(false)}
-                  >
-                    <div className="py-1">
-                      <Link href="/featured" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
-                        Featured Products
-                      </Link>
-                      <Link href="/new-arrivals" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
-                        New Arrivals
-                      </Link>
-                    </div>
-                  </div>
-                )}
+              <a
+                href="#home"
+                className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center"
+              >
+                Home
+              </a>
               </div>
               
               <div className="relative group">
