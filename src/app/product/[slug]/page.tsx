@@ -1,6 +1,7 @@
 import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import Image from 'next/image';
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
@@ -18,7 +19,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
       <p className="text-gray-700 mb-4">{product.description}</p>
       {product.imageLink && (
-        <img src={product.imageLink} alt={product.name} className="w-full rounded" />
+        <Image src={product.imageLink} alt={product.name} className="w-full rounded" />
       )}
       <p className="text-gray-700 mb-4">{product.shopeeLink}</p>
       <p className="text-gray-700 mb-4">{product.tiktokshopLink}</p>

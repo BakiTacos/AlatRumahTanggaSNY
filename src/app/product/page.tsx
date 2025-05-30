@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase';
 import { collection, query, getDocs, orderBy, limit, startAfter } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
+import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore'; // Import these types
 
 interface Product {
   id: string;
@@ -17,7 +18,7 @@ interface Product {
 export default function ProductPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [lastVisible, setLastVisible] = useState<any>(null);
+  const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMore, setHasMore] = useState(true);
 
   const fetchProducts = async (isInitial = false) => {
