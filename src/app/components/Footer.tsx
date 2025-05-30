@@ -23,6 +23,8 @@ export default function Footer() {
                   <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/20072cf11e73fbec3ebc67a98ecacb015393329d/AlatRumahTanggaSNY/SVG/youtube.svg"
                     alt="YouTube"
+                    width={200}
+                    height={100}
                     className="w-6 h-6"
                   />
                 </a>
@@ -30,6 +32,8 @@ export default function Footer() {
                   <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/cffdd38bff910a592cec800b556157ed550d6ef3/AlatRumahTanggaSNY/SVG/shopee.svg"
                     alt="YouTube"
+                    width={200}
+                    height={100}
                     className="w-6 h-6"
                   />
                 </a>
@@ -37,6 +41,8 @@ export default function Footer() {
                   <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/cffdd38bff910a592cec800b556157ed550d6ef3/AlatRumahTanggaSNY/SVG/tiktok.svg"
                     alt="YouTube"
+                    width={200}
+                    height={100}
                     className="w-6 h-6"
                   />
                 </a>
