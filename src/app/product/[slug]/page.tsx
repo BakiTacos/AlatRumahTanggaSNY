@@ -1,6 +1,6 @@
 import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
-import { collection, query, where, getDocs } from 'firebase/firestore'; // Import DocumentData
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import Image from 'next/image';
 
 // Define an interface for your product data
@@ -16,14 +16,13 @@ interface ProductData {
   // Add other properties as they exist in your Firestore documents
 }
 
-// Define the type for the component's props
-// This is the standard way to type page props in Next.js App Router
-interface ProductPageProps {
+// Define the type for the component's props using 'type' instead of 'interface'
+type ProductPageProps = {
   params: {
     slug: string;
   };
   // searchParams?: { [key: string]: string | string[] | undefined }; // Include if you use search params
-}
+};
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
