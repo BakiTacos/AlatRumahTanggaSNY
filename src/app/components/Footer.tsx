@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
     <footer id="footer" className="bg-[#333333] text-white py-12 mt-auto">
@@ -18,21 +20,21 @@ export default function Footer() {
               <h3 className="text-xl font-bold mb-4">Our Social Medias</h3>
               <div className="flex space-x-4">
                 <a href="https://www.youtube.com/@snystore" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="YouTube">
-                  <img
+                  <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/20072cf11e73fbec3ebc67a98ecacb015393329d/AlatRumahTanggaSNY/SVG/youtube.svg"
                     alt="YouTube"
                     className="w-6 h-6"
                   />
                 </a>
                 <a href="shopee.co.id/sny_onlineshop" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="Shopee">
-                  <img
+                  <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/cffdd38bff910a592cec800b556157ed550d6ef3/AlatRumahTanggaSNY/SVG/shopee.svg"
                     alt="YouTube"
                     className="w-6 h-6"
                   />
                 </a>
                 <a href="https://www.tokopedia.com/snyonlineshop" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="Tiktok">
-                  <img
+                  <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/cffdd38bff910a592cec800b556157ed550d6ef3/AlatRumahTanggaSNY/SVG/tiktok.svg"
                     alt="YouTube"
                     className="w-6 h-6"
