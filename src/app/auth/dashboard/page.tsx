@@ -15,6 +15,14 @@ interface ProductForm {
   shopeeLink: string;
   lazadaLink: string;
   blibliLink: string;
+  
+}
+
+function generateSlug(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-') // replace non-alphanumeric with hyphens
+    .replace(/(^-|-$)+/g, '');   // remove starting/ending hyphens
 }
 
 export default function Dashboard() {
@@ -56,16 +64,19 @@ export default function Dashboard() {
     e.preventDefault();
     setError('');
     setSuccess('');
-
+  
     try {
       const productId = generateProductId();
+      const slug = generateSlug(formData.name); // ✅ Generate slug from name
+  
       const docRef = doc(collection(db, 'products'), productId);
       await setDoc(docRef, {
         id: productId,
+        slug, // ✅ Include slug in Firestore
         ...formData,
         createdAt: new Date().toISOString()
       });
-
+  
       setSuccess('Product added successfully!');
       setFormData({
         name: '',
@@ -79,7 +90,7 @@ export default function Dashboard() {
         blibliLink: ''
       });
     } catch (error) {
-        console.log(error);
+      console.log(error);
       setError('Failed to add product. Please try again.');
     }
   };

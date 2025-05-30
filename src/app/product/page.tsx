@@ -10,6 +10,7 @@ interface Product {
   id: string;
   name: string;
   imageLink: string;
+  slug: string;
   createdAt: string;
 }
 
@@ -18,12 +19,6 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [lastVisible, setLastVisible] = useState<any>(null);
   const [hasMore, setHasMore] = useState(true);
-
-  const generateSlug = (name: string) => {
-    return name.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  };
 
   const fetchProducts = async (isInitial = false) => {
     try {
@@ -85,7 +80,7 @@ export default function ProductPage() {
         
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {products.map((product) => (
-            <Link href={`/product/${product.id}`} key={product.id}>
+            <Link href={`/product/${product.slug}`} key={product.id}>
               <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 hover:scale-105">
                 <div className="relative h-48">
                   <Image
