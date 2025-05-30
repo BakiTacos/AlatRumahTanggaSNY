@@ -74,7 +74,7 @@ export default function Dashboard() {
         lazadaLink: '',
         blibliLink: ''
       });
-    } catch (error) {
+    } catch (_) {
       setError('Failed to add product. Please try again.');
     }
   };

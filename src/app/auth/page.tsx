@@ -16,7 +16,7 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push('/auth/dashboard');
-    } catch (error) {
+    } catch (_) {
       setError('Invalid email or password');
     }
   };
