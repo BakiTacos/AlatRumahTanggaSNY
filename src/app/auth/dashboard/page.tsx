@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { auth, db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 interface ProductForm {
@@ -57,7 +57,8 @@ export default function Dashboard() {
 
     try {
       const productId = generateProductId();
-      await addDoc(collection(db, 'products'), {
+      const docRef = doc(collection(db, 'products'), productId);
+      await setDoc(docRef, {
         id: productId,
         ...formData,
         createdAt: new Date().toISOString()
