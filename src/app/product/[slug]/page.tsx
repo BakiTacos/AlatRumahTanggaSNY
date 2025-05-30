@@ -1,6 +1,6 @@
 import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
 import Image from 'next/image';
 
 // Define an interface for your product data
@@ -16,25 +16,28 @@ interface ProductData {
   // Add other properties as they exist in your Firestore documents
 }
 
-// Define the type for the component's props using 'type' instead of 'interface'
+// **THIS IS THE CRUCIAL CHANGE**
+// params is now a Promise in Next.js 15+
 type ProductPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  // searchParams?: { [key: string]: string | string[] | undefined }; // Include if you use search params
+  }>;
+  // searchParams?: Promise<{ [key: string]: string | string[] | undefined }>; // Also applies to searchParams if you use them
 };
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const q = query(collection(db, 'products'), where('slug', '==', params.slug));
+export default async function ProductPage(props: ProductPageProps) {
+  // **AWAIT PARAMS HERE**
+  const { slug } = await props.params;
+
+  const q = query(collection(db, 'products'), where('slug', '==', slug)); // Use the awaited slug
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
     notFound();
   }
 
-  // It's good practice to ensure you're getting data that matches your ProductData interface
   const doc = querySnapshot.docs[0];
-  const product = doc.data() as ProductData; // Type assertion here
+  const product = doc.data() as ProductData;
 
   return (
     <div className="max-w-2xl mx-auto py-10">
