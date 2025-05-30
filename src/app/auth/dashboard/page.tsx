@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 interface ProductForm {
   name: string;
   description: string;
+  category: string;
   imageLink: string;
   youtubeLink: string;
   tiktokshopLink: string;
@@ -21,6 +22,7 @@ export default function Dashboard() {
   const [formData, setFormData] = useState<ProductForm>({
     name: '',
     description: '',
+    category: '',
     imageLink: '',
     youtubeLink: '',
     tiktokshopLink: '',
@@ -68,6 +70,7 @@ export default function Dashboard() {
       setFormData({
         name: '',
         description: '',
+        category: '',
         imageLink: '',
         youtubeLink: '',
         tiktokshopLink: '',
@@ -81,9 +84,11 @@ export default function Dashboard() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -127,6 +132,24 @@ export default function Dashboard() {
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
             />
           </div>
+
+          <div>
+          <label className="block text-sm font-medium text-gray-700">Category</label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
+          >
+            <option value="">Select a category</option>
+            <option value="fashion">Fashion</option>
+            <option value="electronics">Electronics</option>
+            <option value="home">Home</option>
+            <option value="sports">Sports</option>
+            <option value="books">Books</option>
+          </select>
+        </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">Image Link</label>

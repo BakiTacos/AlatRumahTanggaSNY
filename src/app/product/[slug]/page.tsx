@@ -21,7 +21,7 @@ interface Product {
 export default function ProductDetail({
   params,
 }: {
-  params: { id: string };
+  params: { slug: string };
 }) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,15 @@ export default function ProductDetail({
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const productRef = doc(db, 'products', params.id);
+        // Extract the product ID from the slug (format: name-id)
+        const productId = params.slug.split('-').pop();
+        
+        if (!productId) {
+          setLoading(false);
+          return;
+        }
+
+        const productRef = doc(db, 'products', productId);
         const productSnap = await getDoc(productRef);
 
         if (productSnap.exists()) {
@@ -46,7 +54,7 @@ export default function ProductDetail({
     };
 
     fetchProduct();
-  }, [params.id]);
+  }, [params.slug]);
 
   if (loading) {
     return (
@@ -73,6 +81,7 @@ export default function ProductDetail({
             alt={product.name}
             fill
             className="object-cover"
+            priority
           />
         </div>
 

@@ -19,6 +19,12 @@ export default function ProductPage() {
   const [lastVisible, setLastVisible] = useState<any>(null);
   const [hasMore, setHasMore] = useState(true);
 
+  const generateSlug = (name: string) => {
+    return name.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+  };
+
   const fetchProducts = async (isInitial = false) => {
     try {
       let q;
@@ -87,6 +93,7 @@ export default function ProductPage() {
                     alt={product.name}
                     fill
                     className="object-cover"
+                    priority
                   />
                 </div>
                 
