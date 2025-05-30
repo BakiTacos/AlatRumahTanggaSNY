@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FFFFFF] pt-16">
       {/* Hero Carousel Section */}
-      <section id="home" className="relative h-[600px] overflow-hidden">
+      <section id="home" className="relative h-[300px] md:h-[600px] overflow-hidden">
         <div className="embla overflow-hidden" ref={emblaRef}>
           <div className="flex h-full">
           {[
@@ -75,7 +75,7 @@ export default function Home() {
             "https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%203.png",
             "https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%204.png"
           ].map((imageUrl, index) => (
-            <div key={index} className="flex-[0_0_100%] relative h-[600px]">
+            <div key={index} className="flex-[0_0_100%] relative h-[300px] md:h-[600px]">
               <Image 
                 src={imageUrl}
                 alt={`Featured Product ${index + 1}`}
