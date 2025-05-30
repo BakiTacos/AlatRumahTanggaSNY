@@ -1,6 +1,6 @@
 import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
-import { collection, query, where, getDocs, DocumentData } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import Image from 'next/image';
 
 // Define an interface for your product data
