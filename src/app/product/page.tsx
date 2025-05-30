@@ -4,17 +4,12 @@ import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
 import { collection, query, getDocs, orderBy, limit, startAfter } from 'firebase/firestore';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Product {
   id: string;
   name: string;
-  description: string;
   imageLink: string;
-  youtubeLink: string;
-  tiktokshopLink: string;
-  shopeeLink: string;
-  lazadaLink: string;
-  blibliLink: string;
   createdAt: string;
 }
 
@@ -41,6 +36,7 @@ export default function ProductPage() {
 
       const querySnapshot = await getDocs(q);
       const productList = querySnapshot.docs.map(doc => ({
+        id: doc.id,
         ...doc.data(),
       })) as Product[];
 
@@ -81,76 +77,24 @@ export default function ProductPage() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Our Products</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {products.map((product) => (
-            <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="relative h-48">
-                <Image
-                  src={product.imageLink}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              
-              <div className="p-4">
-                <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-                <p className="text-gray-600 mb-4">{product.description}</p>
+            <Link href={`/product/${product.id}`} key={product.id}>
+              <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-200 hover:scale-105">
+                <div className="relative h-48">
+                  <Image
+                    src={product.imageLink}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 
-                <div className="space-y-2">
-                  {product.youtubeLink && (
-                    <a
-                      href={product.youtubeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-red-600 hover:text-red-700"
-                    >
-                      Watch on YouTube
-                    </a>
-                  )}
-                  {product.tiktokshopLink && (
-                    <a
-                      href={product.tiktokshopLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-black hover:text-gray-700"
-                    >
-                      Buy on TikTok Shop
-                    </a>
-                  )}
-                  {product.shopeeLink && (
-                    <a
-                      href={product.shopeeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-orange-500 hover:text-orange-600"
-                    >
-                      Buy on Shopee
-                    </a>
-                  )}
-                  {product.lazadaLink && (
-                    <a
-                      href={product.lazadaLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-blue-600 hover:text-blue-700"
-                    >
-                      Buy on Lazada
-                    </a>
-                  )}
-                  {product.blibliLink && (
-                    <a
-                      href={product.blibliLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block text-blue-500 hover:text-blue-600"
-                    >
-                      Buy on Blibli
-                    </a>
-                  )}
+                <div className="p-4">
+                  <h2 className="text-lg font-semibold text-gray-900 truncate">{product.name}</h2>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
