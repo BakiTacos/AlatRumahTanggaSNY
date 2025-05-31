@@ -15,11 +15,9 @@ interface ProductData {
   youtubeLink?: string;
 }
 
-type PageProps = {
-  params: { slug: string };
-};
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
@@ -49,7 +47,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ProductPage({ params }: PageProps) {
+export default async function ProductPage(
+  { params }: { params: { slug: string } }
+) {
   const { slug } = params;
 
   const q = query(collection(db, 'products'), where('slug', '==', slug));
