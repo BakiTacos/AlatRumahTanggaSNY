@@ -48,9 +48,8 @@ export async function generateMetadata(
 }
 
 export default async function ProductPage(
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
+  { params }: { params: { slug: string }}) {
+  const { slug } = await params;
 
   const q = query(collection(db, 'products'), where('slug', '==', slug));
   const querySnapshot = await getDocs(q);
