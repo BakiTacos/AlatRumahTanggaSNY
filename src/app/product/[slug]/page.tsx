@@ -2,7 +2,7 @@ import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import type { Metadata } from 'next';
-import ProductClient from './ProductClient'; // new client component
+import ProductClient from './ProductClient';
 
 interface ProductData {
   name: string;
@@ -15,7 +15,14 @@ interface ProductData {
   youtubeLink?: string;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+// ✅ Metadata generation
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
@@ -45,7 +52,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
+// ✅ Page
+export default async function ProductPage({ params }: PageProps) {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
