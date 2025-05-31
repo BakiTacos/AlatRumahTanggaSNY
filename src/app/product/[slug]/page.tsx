@@ -17,7 +17,7 @@ interface ProductData {
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }
-): Promise<Metadata> {
+) {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
