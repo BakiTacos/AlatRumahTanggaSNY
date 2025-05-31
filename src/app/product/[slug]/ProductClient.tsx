@@ -15,7 +15,6 @@ interface ProductData {
 
 export default function ProductClient({
   product,
-  slug,
 }: {
   product: ProductData;
   slug: string;
