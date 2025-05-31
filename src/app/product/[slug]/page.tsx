@@ -17,9 +17,7 @@ interface ProductData {
 }
 
 type ProductPageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: { slug: string };
 };
 
 // 🧠 SEO: generateMetadata
