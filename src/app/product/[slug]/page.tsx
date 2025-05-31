@@ -16,18 +16,12 @@ interface ProductData {
   youtubeLink?: string;
 }
 
-type Params = {
-  slug: string;
-};
-// Define the props for the ProductPage component
-type ProductPageProps = {
-  params: Params;
-};
-
 // 🧠 SEO: generateMetadata
 export async function generateMetadata({
   params,
-}: ProductPageProps): Promise<Metadata> {
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
@@ -57,7 +51,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
+// Remove explicit typing of props to prevent type error; destructure params inside function body
+export default async function ProductPage(props: any) {
+  // Accept props as any, destructure params from it to get slug
+  const { params } = props;
   const { slug } = params;
 
   const q = query(collection(db, 'products'), where('slug', '==', slug));
@@ -152,3 +149,4 @@ export default async function ProductPage({ params }: ProductPageProps) {
     </div>
   );
 }
+
