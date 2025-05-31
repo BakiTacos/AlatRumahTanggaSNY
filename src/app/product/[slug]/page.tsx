@@ -68,7 +68,7 @@ export default async function ProductPage({
 
   const doc = querySnapshot.docs[0];
   const product = doc.data() as ProductData;
-
+  
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
