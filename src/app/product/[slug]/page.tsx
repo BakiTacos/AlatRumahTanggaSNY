@@ -1,7 +1,15 @@
+// app/product/[slug]/page.tsx
 import { db } from '@/lib/firebase';
-import { notFound } from 'next/navigation';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import Image from 'next/image';
+
+type ProductPageProps = {
+  params: {
+    slug: string;
+  };
+};
 
 interface ProductData {
   name: string;
@@ -14,18 +22,21 @@ interface ProductData {
   youtubeLink?: string;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+// ✅ SEO metadata function (no error)
+export async function generateMetadata(
+  { params }: ProductPageProps
+): Promise<Metadata> {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
-  const querySnapshot = await getDocs(q);
+  const snapshot = await getDocs(q);
 
-  if (querySnapshot.empty) {
+  if (snapshot.empty) {
     return {
       title: 'Product Not Found',
       description: 'The product you are looking for does not exist.',
     };
   }
 
-  const product = querySnapshot.docs[0].data() as ProductData;
+  const product = snapshot.docs[0].data() as ProductData;
 
   return {
     title: product.name,
@@ -44,30 +55,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// Route handler that wraps the slug logic
-async function getProductData(slug: string) {
-  const q = query(collection(db, 'products'), where('slug', '==', slug));
-  const querySnapshot = await getDocs(q);
+// ✅ Page Component (no error)
+export default async function ProductPage({ params }: ProductPageProps) {
+  const q = query(collection(db, 'products'), where('slug', '==', params.slug));
+  const snapshot = await getDocs(q);
 
-  if (querySnapshot.empty) {
-    return null;
-  }
+  if (snapshot.empty) notFound();
 
-  return querySnapshot.docs[0].data() as ProductData;
-}
-
-// This function is still required to accept params for dynamic routing
-export default async function ProductPageWrapper(props: { params: { slug: string } }) {
-  const product = await getProductData(props.params.slug);
-
-  if (!product) {
-    notFound();
-  }
+  const product = snapshot.docs[0].data() as ProductData;
 
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="bg-background rounded-xl shadow-lg overflow-hidden border border-foreground/10">
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
           {product.imageLink && (
             <div className="relative h-[400px] w-full">
               <Image
@@ -81,8 +81,10 @@ export default async function ProductPageWrapper(props: { params: { slug: string
           )}
 
           <div className="p-8">
-            <h1 className="text-4xl font-bold text-foreground mb-4">{product.name}</h1>
-            <p className="text-foreground/80 text-lg mb-8 leading-relaxed">{product.description}</p>
+            <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+            <p className="text-gray-700 text-lg mb-8 leading-relaxed">
+              {product.description}
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {product.shopeeLink && (
@@ -90,49 +92,53 @@ export default async function ProductPageWrapper(props: { params: { slug: string
                   href={product.shopeeLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-[#EE4D2D] text-white rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-6 py-3 bg-[#EE4D2D] text-white rounded-lg text-center font-semibold"
                 >
-                  <span className="font-semibold">Buy on Shopee</span>
+                  Buy on Shopee
                 </a>
               )}
+
               {product.tiktokshopLink && (
                 <a
                   href={product.tiktokshopLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-[#000000] text-white rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-6 py-3 bg-black text-white rounded-lg text-center font-semibold"
                 >
-                  <span className="font-semibold">Buy on TikTok Shop</span>
+                  Buy on TikTok Shop
                 </a>
               )}
+
               {product.lazadaLink && (
                 <a
                   href={product.lazadaLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-[#0F146D] text-white rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-6 py-3 bg-[#0F146D] text-white rounded-lg text-center font-semibold"
                 >
-                  <span className="font-semibold">Buy on Lazada</span>
+                  Buy on Lazada
                 </a>
               )}
+
               {product.blibliLink && (
                 <a
                   href={product.blibliLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-[#0095DA] text-white rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-6 py-3 bg-[#0095DA] text-white rounded-lg text-center font-semibold"
                 >
-                  <span className="font-semibold">Buy on Blibli</span>
+                  Buy on Blibli
                 </a>
               )}
+
               {product.youtubeLink && (
                 <a
                   href={product.youtubeLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center px-6 py-3 bg-[#FF0000] text-white rounded-lg hover:opacity-90 transition-opacity col-span-full"
+                  className="md:col-span-2 px-6 py-3 bg-[#FF0000] text-white rounded-lg text-center font-semibold"
                 >
-                  <span className="font-semibold">Watch on YouTube</span>
+                  Watch on YouTube
                 </a>
               )}
             </div>
