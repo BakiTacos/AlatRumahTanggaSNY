@@ -5,7 +5,13 @@ from 'firebase/firestore';
 import { Metadata } from 'next';
 import Image from 'next/image';
 
-interface ProductPageProps {
+interface PageProps {
+  params: {
+    [key: string]: string;
+  };
+}
+
+interface ProductPageParams {
   params: {
     slug: string;
   };
@@ -58,7 +64,11 @@ export async function generateMetadata({
 }
 
 // Remove explicit typing of props to prevent type error; destructure params inside function body
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = params;
 
   const q = query(collection(db, 'products'), where('slug', '==', slug));
