@@ -15,6 +15,8 @@ interface ProductData {
   youtubeLink?: string;
 }
 
+type Params = Promise<{ slug: string }>;
+
 export async function generateMetadata(
   { params }: { params: { slug: string } }
 ): Promise<Metadata> {
@@ -48,7 +50,7 @@ export async function generateMetadata(
 }
 
 export default async function ProductPage(
-  { params }: { params: { slug: string }}) {
+  { params }: { params: Params}) {
   const { slug } = await params;
 
   const q = query(collection(db, 'products'), where('slug', '==', slug));
