@@ -22,7 +22,7 @@ type PageProps = {
 };
 
 // ✅ Metadata generation
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 // ✅ Page
-export default async function ProductPage({ params }: PageProps) {
+export default async function ProductPage({ params }: { params: { slug: string } }) {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
