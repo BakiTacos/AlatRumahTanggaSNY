@@ -16,8 +16,12 @@ interface ProductData {
   youtubeLink?: string;
 }
 
+type Params = {
+  slug: string;
+};
+// Define the props for the ProductPage component
 type ProductPageProps = {
-  params: { slug: string };
+  params: Params;
 };
 
 // 🧠 SEO: generateMetadata
