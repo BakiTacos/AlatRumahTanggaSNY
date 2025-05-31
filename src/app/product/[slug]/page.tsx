@@ -5,18 +5,6 @@ from 'firebase/firestore';
 import { Metadata } from 'next';
 import Image from 'next/image';
 
-interface PageProps {
-  params: {
-    [key: string]: string;
-  };
-}
-
-interface ProductPageParams {
-  params: {
-    slug: string;
-  };
-}
-
 interface ProductData {
   name: string;
   description: string;
