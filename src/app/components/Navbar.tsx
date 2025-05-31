@@ -75,16 +75,16 @@ export default function Navbar() {
                     onMouseLeave={() => setProductsDropdown(false)}
                   >
                     <div className="py-1">
-                      <Link href="/kitchen" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
+                      <Link href="/product" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
                         Kitchen Appliances
                       </Link>
-                      <Link href="/living-room" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
+                      <Link href="/product" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
                         Living Room
                       </Link>
-                      <Link href="/bedroom" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
+                      <Link href="/product" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
                         Bedroom
                       </Link>
-                      <Link href="/bathroom" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
+                      <Link href="/product" className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white">
                         Bathroom
                       </Link>
                     </div>
@@ -92,18 +92,18 @@ export default function Navbar() {
                 )}
               </div>
               
-              <a
-                href="#about-us"
+              <Link
+                href="/#about-us"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 About Us
-              </a>
-              <a
-                href="#footer"
+              </Link>
+              <Link
+                href="/#footer"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -136,28 +136,28 @@ export default function Navbar() {
               {productsDropdown && (
                 <div className="mt-2 pl-4">
                   <Link
-                    href="/kitchen"
+                    href="/product"
                     className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Kitchen Appliances
                   </Link>
                   <Link
-                    href="/living-room"
+                    href="/product"
                     className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Living Room
                   </Link>
                   <Link
-                    href="/bedroom"
+                    href="/product"
                     className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Bedroom
                   </Link>
                   <Link
-                    href="/bathroom"
+                    href="/product"
                     className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -166,20 +166,20 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            <a
-              href="#about-us"
+            <Link
+              href="/#about-us"
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
               About Us
-            </a>
-            <a
-              href="#footer"
+            </Link>
+            <Link
+              href="/#footer"
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       </div>
