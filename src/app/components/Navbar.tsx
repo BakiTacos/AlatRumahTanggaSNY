@@ -43,7 +43,7 @@ export default function Navbar() {
               </button>
             </div>
             <div className="flex-shrink-0 flex items-center">
-              <Link href="#home" className="text-2xl font-bold text-[#333333] hover:text-[#A5D6A7] transition-colors">
+              <Link href="/#home" className="text-2xl font-bold text-[#333333] hover:text-[#A5D6A7] transition-colors">
                 SNY
               </Link>
             </div>
