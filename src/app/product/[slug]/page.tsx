@@ -17,15 +17,13 @@ interface ProductData {
 }
 
 type ProductPageProps = {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 };
 
 // 🧠 SEO: generateMetadata
 export async function generateMetadata({
   params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+}: ProductPageProps): Promise<Metadata> {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
@@ -54,7 +52,6 @@ export async function generateMetadata({
     },
   };
 }
-
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = params;
