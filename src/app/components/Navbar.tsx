@@ -49,12 +49,12 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-1">
               <div className="relative group">
-              <a
+              <Link
                 href="/"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center"
               >
                 Home
-              </a>
+              </Link>
               </div>
               
               <div className="relative group">
@@ -111,13 +111,13 @@ export default function Navbar() {
         {/* Mobile menu */}
         <div className={`sm:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a
+            <Link
               href="/"
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
-            </a>
+            </Link>
             <div className="relative">
               <button
                 onClick={() => setProductsDropdown(!productsDropdown)}
