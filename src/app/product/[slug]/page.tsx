@@ -1,8 +1,7 @@
 import { db } from '@/lib/firebase';
 import { notFound } from 'next/navigation';
-import { collection, query, where, getDocs } 
-from 'firebase/firestore';
-import { Metadata } from 'next';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 
 interface ProductData {
@@ -16,7 +15,7 @@ interface ProductData {
   youtubeLink?: string;
 }
 
-// 🧠 SEO: generateMetadata
+// ✅ Properly typed generateMetadata
 export async function generateMetadata({
   params,
 }: {
@@ -51,24 +50,21 @@ export async function generateMetadata({
   };
 }
 
-// Remove explicit typing of props to prevent type error; destructure params inside function body
+// ✅ Page function with correct props typing
 export default async function ProductPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const { slug } = params;
-
-  const q = query(collection(db, 'products'), where('slug', '==', slug));
+  const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
     notFound();
   }
 
-  const doc = querySnapshot.docs[0];
-  const product = doc.data() as ProductData;
-  
+  const product = querySnapshot.docs[0].data() as ProductData;
+
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -84,11 +80,11 @@ export default async function ProductPage({
               />
             </div>
           )}
-          
+
           <div className="p-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">{product.name}</h1>
             <p className="text-foreground/80 text-lg mb-8 leading-relaxed">{product.description}</p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {product.shopeeLink && (
                 <a
@@ -100,7 +96,6 @@ export default async function ProductPage({
                   <span className="font-semibold">Buy on Shopee</span>
                 </a>
               )}
-              
               {product.tiktokshopLink && (
                 <a
                   href={product.tiktokshopLink}
@@ -111,7 +106,6 @@ export default async function ProductPage({
                   <span className="font-semibold">Buy on TikTok Shop</span>
                 </a>
               )}
-              
               {product.lazadaLink && (
                 <a
                   href={product.lazadaLink}
@@ -122,7 +116,6 @@ export default async function ProductPage({
                   <span className="font-semibold">Buy on Lazada</span>
                 </a>
               )}
-              
               {product.blibliLink && (
                 <a
                   href={product.blibliLink}
@@ -133,7 +126,6 @@ export default async function ProductPage({
                   <span className="font-semibold">Buy on Blibli</span>
                 </a>
               )}
-              
               {product.youtubeLink && (
                 <a
                   href={product.youtubeLink}
@@ -151,4 +143,3 @@ export default async function ProductPage({
     </div>
   );
 }
-
