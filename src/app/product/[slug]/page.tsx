@@ -14,9 +14,7 @@ interface ProductData {
   youtubeLink?: string;
 }
 
-export async function generateMetadata(
-  { params }: { params: { slug: string } }
-) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const q = query(collection(db, 'products'), where('slug', '==', params.slug));
   const querySnapshot = await getDocs(q);
 
@@ -46,20 +44,25 @@ export async function generateMetadata(
   };
 }
 
-export default async function ProductPage(
-  { params }: { params: { slug: string } }
-) {
-  const { slug } = params;
-
+// Route handler that wraps the slug logic
+async function getProductData(slug: string) {
   const q = query(collection(db, 'products'), where('slug', '==', slug));
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
-    notFound();
+    return null;
   }
 
-  const doc = querySnapshot.docs[0];
-  const product = doc.data() as ProductData;
+  return querySnapshot.docs[0].data() as ProductData;
+}
+
+// This function is still required to accept params for dynamic routing
+export default async function ProductPageWrapper(props: { params: { slug: string } }) {
+  const product = await getProductData(props.params.slug);
+
+  if (!product) {
+    notFound();
+  }
 
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
@@ -76,11 +79,11 @@ export default async function ProductPage(
               />
             </div>
           )}
-          
+
           <div className="p-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">{product.name}</h1>
             <p className="text-foreground/80 text-lg mb-8 leading-relaxed">{product.description}</p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {product.shopeeLink && (
                 <a
@@ -92,7 +95,6 @@ export default async function ProductPage(
                   <span className="font-semibold">Buy on Shopee</span>
                 </a>
               )}
-              
               {product.tiktokshopLink && (
                 <a
                   href={product.tiktokshopLink}
@@ -103,7 +105,6 @@ export default async function ProductPage(
                   <span className="font-semibold">Buy on TikTok Shop</span>
                 </a>
               )}
-              
               {product.lazadaLink && (
                 <a
                   href={product.lazadaLink}
@@ -114,7 +115,6 @@ export default async function ProductPage(
                   <span className="font-semibold">Buy on Lazada</span>
                 </a>
               )}
-              
               {product.blibliLink && (
                 <a
                   href={product.blibliLink}
@@ -125,7 +125,6 @@ export default async function ProductPage(
                   <span className="font-semibold">Buy on Blibli</span>
                 </a>
               )}
-              
               {product.youtubeLink && (
                 <a
                   href={product.youtubeLink}
