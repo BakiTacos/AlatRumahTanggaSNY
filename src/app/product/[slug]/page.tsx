@@ -17,7 +17,7 @@ interface ProductData {
 }
 
 type ProductPageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 // 🧠 SEO: generateMetadata
@@ -56,8 +56,8 @@ export async function generateMetadata({
 }
 
 
-export default async function ProductPage(props: ProductPageProps) {
-  const { slug } = await props.params;
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = params;
 
   const q = query(collection(db, 'products'), where('slug', '==', slug));
   const querySnapshot = await getDocs(q);
