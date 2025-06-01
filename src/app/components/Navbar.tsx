@@ -1,27 +1,41 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [productsDropdown, setProductsDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
 
-  // Close mobile menu when route changes
   useEffect(() => {
+    // Tutup mobile menu saat berpindah halaman
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setProductsDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            {/* Mobile menu button */}
+            {/* Tombol menu mobile */}
             <div className="sm:hidden -ml-2 mr-2">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -41,6 +55,7 @@ export default function Navbar() {
                 SNY
               </Link>
             </div>
+
             <div className="hidden sm:ml-6 sm:flex sm:space-x-1">
               <Link
                 href="/"
@@ -51,10 +66,10 @@ export default function Navbar() {
                 Home
               </Link>
 
-              <div className="relative group">
+              {/* Products Dropdown */}
+              <div className="relative" ref={dropdownRef}>
                 <button
-                  onMouseEnter={() => setProductsDropdown(true)}
-                  onMouseLeave={() => setProductsDropdown(false)}
+                  onClick={() => setProductsDropdown((prev) => !prev)}
                   className="px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
                 >
                   Products
@@ -63,18 +78,14 @@ export default function Navbar() {
                   </svg>
                 </button>
                 {productsDropdown && (
-                  <div
-                    className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
-                    onMouseEnter={() => setProductsDropdown(true)}
-                    onMouseLeave={() => setProductsDropdown(false)}
-                  >
+                  <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                     <div className="py-1">
                       {['Kitchen Appliances', 'Living Room', 'Bedroom', 'Bathroom'].map((label) => (
                         <Link
                           key={label}
                           href="/product"
                           className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white"
-                          onClick={() => setMobileMenuOpen(false)}
+                          onClick={() => setProductsDropdown(false)}
                         >
                           {label}
                         </Link>
@@ -89,7 +100,6 @@ export default function Navbar() {
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center ${
                   isActive('/article') ? 'text-[#A5D6A7] font-semibold' : 'text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50'
                 }`}
-                onClick={() => setMobileMenuOpen(false)}
               >
                 Articles
               </Link>
@@ -97,14 +107,12 @@ export default function Navbar() {
               <Link
                 href="/#about-us"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
               >
                 About Us
               </Link>
               <Link
                 href="/#footer"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
               </Link>
@@ -112,7 +120,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Menu Mobile */}
         <div className={`sm:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
             <Link
