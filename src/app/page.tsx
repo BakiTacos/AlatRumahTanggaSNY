@@ -76,7 +76,7 @@ export default function Home() {
     {
       title: 'Ruang Tamu',
       description: 'Perlengkapan dan Peralatan Ruang Tamu',
-      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Living%20Room.jpeg',
       alt: 'Ruang Tamu',
     },
     {
@@ -88,7 +88,7 @@ export default function Home() {
     {
       title: 'Kamar Mandi',
       description: 'Perlengkapan dan Peralatan Kamar Mandi',
-      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Bathroom.jpeg',
       alt: 'Kamar Mandi',
     },
   ];
