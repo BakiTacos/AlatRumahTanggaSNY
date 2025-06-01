@@ -2,30 +2,60 @@
 
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { collection, getDocs, query, limit } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+import Link from 'next/link';
+
+interface Article {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  imageUrl: string;
+  createdAt: string;
+}
 
 export default function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
-    duration: 10, // ✅ smoother scroll
-    // You can add `duration` or `dragFree` if needed
+    duration: 10,
   });
+
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  useEffect(() => {
+    async function fetchRandomArticles() {
+      const articlesRef = collection(db, 'articles');
+      const q = query(articlesRef, limit(3));
+      const snapshot = await getDocs(q);
+      const fetchedArticles = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as Article[];
+      
+      // Shuffle the articles
+      const shuffledArticles = [...fetchedArticles].sort(() => Math.random() - 0.5);
+      setArticles(shuffledArticles);
+    }
+
+    fetchRandomArticles();
+  }, []);
+
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
   
-
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
   
-  // ✅ Autoplay with scroll check
   useEffect(() => {
     if (!emblaApi) return;
   
     const autoplay = () => {
       if (!emblaApi.canScrollNext()) {
-        emblaApi.scrollTo(0); // reset to start if needed (optional)
+        emblaApi.scrollTo(0);
       } else {
         emblaApi.scrollNext();
       }
@@ -103,62 +133,73 @@ export default function Home() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
-  
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 py-16 text-[#333333]">
-        {/* About Us Section */}
-        <section id="about-us" className="mb-20 scroll-mt-20">
-          <h2 className="text-3xl font-bold mb-8 text-center">About Us</h2>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-4">
-              <p className="text-lg">SNY has been providing quality home appliances since 2010. We pride ourselves on offering durable, efficient, and stylish products that enhance your daily life.</p>
-              <p className="text-lg">Our commitment to excellence and customer satisfaction has made us a trusted name in the industry.</p>
-            </div>
-            <div className=" relative h-[400px] w-full">
-              <Image
-                src="https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png"
-                alt="About SNY Home Appliances"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover rounded-lg"
-                priority
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* Product Categories Section */}
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold mb-12 text-center">Our Product Categories</h2>
+      {/* Categories Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((category, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <div className="relative h-64 w-full">
+              <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+                <div className="relative h-48">
                   <Image
                     src={category.image}
                     alt={category.alt}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="object-cover"
                   />
-                  
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-20">
-                    <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
-                    <p className="text-sm opacity-90">{category.description}</p>
-                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
+                  <p className="text-gray-600">{category.description}</p>
                 </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-
-
-      </main>
+      {/* Articles Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl font-bold">Latest Articles</h2>
+            <Link href="/article" className="text-blue-600 hover:text-blue-800 font-medium">
+              View All Articles
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((article) => (
+              <Link key={article.id} href={`/article/${article.slug}`}>
+                <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+                  {article.imageUrl && (
+                    <div className="relative aspect-[16/9]">
+                      <Image
+                        src={article.imageUrl}
+                        alt={article.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900">{article.title}</h3>
+                    <p className="text-gray-600 line-clamp-2">{article.description}</p>
+                    <div className="mt-4 text-sm text-gray-500">
+                      {new Date(article.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

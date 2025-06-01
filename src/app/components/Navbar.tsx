@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
@@ -10,6 +10,11 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
     <nav className="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -69,6 +74,7 @@ export default function Navbar() {
                           key={label}
                           href="/product"
                           className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white"
+                          onClick={() => setMobileMenuOpen(false)}
                         >
                           {label}
                         </Link>
@@ -79,14 +85,26 @@ export default function Navbar() {
               </div>
 
               <Link
+                href="/article"
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center ${
+                  isActive('/article') ? 'text-[#A5D6A7] font-semibold' : 'text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50'
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Articles
+              </Link>
+
+              <Link
                 href="/#about-us"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 About Us
               </Link>
               <Link
                 href="/#footer"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
               </Link>
@@ -100,42 +118,28 @@ export default function Navbar() {
             <Link
               href="/"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isActive('/') ? 'text-[#A5D6A7] font-semibold' : 'text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50'
+                isActive('/') ? 'text-[#A5D6A7] bg-gray-50' : 'text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50'
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
-            <div className="relative">
-              <button
-                onClick={() => setProductsDropdown(!productsDropdown)}
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 flex justify-between items-center"
-              >
-                Products
-                <svg
-                  className={`ml-1 h-4 w-4 transform ${productsDropdown ? 'rotate-180' : ''} transition-transform duration-200`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {productsDropdown && (
-                <div className="mt-2 pl-4">
-                  {['Kitchen Appliances', 'Living Room', 'Bedroom', 'Bathroom'].map((label) => (
-                    <Link
-                      key={label}
-                      href="/product"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <Link
+              href="/product"
+              className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Products
+            </Link>
+            <Link
+              href="/article"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isActive('/article') ? 'text-[#A5D6A7] bg-gray-50' : 'text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50'
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Articles
+            </Link>
             <Link
               href="/#about-us"
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
