@@ -68,28 +68,28 @@ export default function Home() {
 
   const categories = [
     {
-      title: 'Kitchen Appliances',
-      description: 'Modern solutions for your cooking needs',
+      title: 'Dapur',
+      description: 'Perlengkapan dan Peralatan Dapur',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
-      alt: 'Kitchen Appliances',
+      alt: 'Dapur',
     },
     {
-      title: 'Living Room',
-      description: 'Comfort and style for your living space',
+      title: 'Ruang Tamu',
+      description: 'Perlengkapan dan Peralatan Ruang Tamu',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
-      alt: 'Living Room Appliances',
+      alt: 'Ruang Tamu',
     },
     {
-      title: 'Bedroom',
-      description: 'Essential appliances for peaceful rest',
+      title: 'Kamar Tidur',
+      description: 'Perlengkapan dan Peralatan Kamar Tidur',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
-      alt: 'Bedroom Appliances',
+      alt: 'Kamar Tidur',
     },
     {
-      title: 'Bathroom',
-      description: 'Modern bathroom solutions',
+      title: 'Kamar Mandi',
+      description: 'Perlengkapan dan Peralatan Kamar Mandi',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
-      alt: 'Bathroom Appliances',
+      alt: 'Kamar Mandi',
     },
   ];
 

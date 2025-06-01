@@ -21,7 +21,9 @@ interface ArticleForm {
   title: string;
   description: string;
   content: string;
+  author: string; // Add the author field
   imageUrl: string;
+  readingTime: string;
 }
 
 function generateSlug(text: string) {
@@ -33,6 +35,8 @@ function generateSlug(text: string) {
 
 export default function Dashboard() {
   const router = useRouter();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [formType, setFormType] = useState<'product' | 'article'>('product');
   const [productForm, setProductForm] = useState<ProductForm>({
     name: '',
@@ -49,16 +53,21 @@ export default function Dashboard() {
     title: '',
     description: '',
     content: '',
-    imageUrl: ''
+    author: '', // Add the author field
+    imageUrl: '',
+    readingTime: '',
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
+    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+      } else {
         router.push('/auth');
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -130,7 +139,9 @@ export default function Dashboard() {
         title: '',
         description: '',
         content: '',
-        imageUrl: ''
+        author: '', // Add the author field
+        imageUrl: '',
+        readingTime: ''
       });
     } catch (error) {
       console.log(error);
@@ -151,6 +162,8 @@ export default function Dashboard() {
     const { name, value } = e.target;
     setArticleForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -222,9 +235,6 @@ export default function Dashboard() {
                 <option value="kamar-mandi">Kamar Mandi</option>
                 <option value="kamar-tidur">Kamar Tidur</option>
                 <option value="ruang-tamu">Ruang Tamu</option>
-                <option value="ruang-makan">Ruang Makan</option>
-                <option value="teras">Teras</option>
-                <option value="garasi">Garasi</option>
               </select>
             </div>
 
@@ -333,6 +343,30 @@ export default function Dashboard() {
               <textarea
                 name="content"
                 value={articleForm.content}
+                onChange={handleArticleChange}
+                required
+                rows={8}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Author</label>
+              <textarea
+                name="author"
+                value={articleForm.author}
+                onChange={handleArticleChange}
+                required
+                rows={8}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Reading Time</label>
+              <textarea
+                name="readingTime"
+                value={articleForm.readingTime}
                 onChange={handleArticleChange}
                 required
                 rows={8}
