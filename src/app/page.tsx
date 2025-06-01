@@ -82,7 +82,7 @@ export default function Home() {
     {
       title: 'Kamar Tidur',
       description: 'Perlengkapan dan Peralatan Kamar Tidur',
-      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Bedroom.png',
       alt: 'Kamar Tidur',
     },
     {
