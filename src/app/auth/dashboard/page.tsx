@@ -35,8 +35,7 @@ function generateSlug(text: string) {
 
 export default function Dashboard() {
   const router = useRouter();
-  const [setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  
   const [formType, setFormType] = useState<'product' | 'article'>('product');
   const [productForm, setProductForm] = useState<ProductForm>({
     name: '',
@@ -61,13 +60,10 @@ export default function Dashboard() {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      if (firebaseUser) {
-        setUser(firebaseUser);
-      } else {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
         router.push('/auth');
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -162,8 +158,6 @@ export default function Dashboard() {
     const { name, value } = e.target;
     setArticleForm((prev) => ({ ...prev, [name]: value }));
   };
-
-  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
