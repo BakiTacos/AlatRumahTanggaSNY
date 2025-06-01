@@ -70,7 +70,7 @@ export default function Home() {
     {
       title: 'Dapur',
       description: 'Perlengkapan dan Peralatan Dapur',
-      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Carousel/Banner%201.png',
+      image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Dapur.jpeg',
       alt: 'Dapur',
     },
     {
