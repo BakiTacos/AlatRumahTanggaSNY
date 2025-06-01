@@ -35,6 +35,7 @@ function generateSlug(text: string) {
 
 export default function Dashboard() {
   const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(true);
   
   const [formType, setFormType] = useState<'product' | 'article'>('product');
   const [productForm, setProductForm] = useState<ProductForm>({
@@ -63,9 +64,11 @@ export default function Dashboard() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (!user) {
         router.push('/auth');
+      } else {
+        setCheckingAuth(false); // stop loading only if user is found
       }
     });
-
+  
     return () => unsubscribe();
   }, [router]);
 
@@ -158,6 +161,14 @@ export default function Dashboard() {
     const { name, value } = e.target;
     setArticleForm((prev) => ({ ...prev, [name]: value }));
   };
+
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">Checking authentication...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
