@@ -35,7 +35,7 @@ function generateSlug(text: string) {
 
 export default function Dashboard() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [formType, setFormType] = useState<'product' | 'article'>('product');
   const [productForm, setProductForm] = useState<ProductForm>({
