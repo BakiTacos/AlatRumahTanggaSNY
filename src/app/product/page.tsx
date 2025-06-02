@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, query, getDocs, orderBy, limit, startAfter, where } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, limit, startAfter, where, QueryConstraint } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
@@ -33,13 +33,13 @@ export default function ProductPage() {
   const fetchProducts = async (isInitial = false) => {
     try {
       const baseQuery = collection(db, 'products');
-      const constraints = [
+      const constraints: QueryConstraint[] = [
         orderBy('createdAt', 'desc'),
         selectedCategory !== 'all' ? where('category', '==', selectedCategory) : null,
         isInitial ? limit(20) : null,
         !isInitial && lastVisible ? startAfter(lastVisible) : null,
         !isInitial ? limit(20) : null
-      ].filter(Boolean);
+      ].filter((c): c is QueryConstraint => c !== null);
 
       const q = query(baseQuery, ...constraints);
 
