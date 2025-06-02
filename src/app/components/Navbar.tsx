@@ -80,16 +80,19 @@ export default function Navbar() {
                 {productsDropdown && (
                   <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                     <div className="py-1">
-                      {['Dapur', 'Ruang Tamu', 'Kamar Tidur', 'Kamar Mandi'].map((label) => (
-                        <Link
-                          key={label}
-                          href="/product"
-                          className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white"
-                          onClick={() => setProductsDropdown(false)}
-                        >
-                          {label}
-                        </Link>
-                      ))}
+                      {['Dapur', 'Ruang Tamu', 'Kamar Tidur', 'Kamar Mandi'].map((label, index) => {
+                        const slug = label.toLowerCase().replace(/\s+/g, '-'); // "Ruang Tamu" → "ruang-tamu"
+                        return (
+                          <Link
+                            key={index}
+                            href={`/product?category=${slug}`}
+                            className="block px-4 py-2 text-sm text-[#333333] hover:bg-[#A5D6A7] hover:text-white"
+                            onClick={() => setProductsDropdown(false)}
+                          >
+                            {label}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
