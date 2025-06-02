@@ -42,7 +42,7 @@ export default function ProductPage() {
         !isInitial ? limit(20) : null,
       ];
   
-      const constraints: QueryConstraint[] = rawConstraints.filter(
+      const constraints = rawConstraints.filter(
         (c): c is QueryConstraint => c !== null
       );
   
