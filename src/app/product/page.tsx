@@ -42,9 +42,7 @@ export default function ProductPage() {
         !isInitial ? limit(20) : null,
       ];
   
-      const constraints = rawConstraints.filter(
-        (c): c is QueryConstraint => c !== null
-      );
+      const constraints = rawConstraints.filter((c): c is NonNullable<typeof c> => c !== null);
   
       const q = query(baseQuery, ...constraints);
       const querySnapshot = await getDocs(q);
