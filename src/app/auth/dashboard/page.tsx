@@ -15,6 +15,8 @@ interface ProductForm {
   shopeeLink: string;
   lazadaLink: string;
   blibliLink: string;
+  specifications: string[];
+  features: string[];
 }
 
 interface ArticleForm {
@@ -47,7 +49,9 @@ export default function Dashboard() {
     tiktokshopLink: '',
     shopeeLink: '',
     lazadaLink: '',
-    blibliLink: ''
+    blibliLink: '',
+    specifications: [],
+    features: [],
   });
   const [articleForm, setArticleForm] = useState<ArticleForm>({
     title: '',
@@ -108,7 +112,9 @@ export default function Dashboard() {
         tiktokshopLink: '',
         shopeeLink: '',
         lazadaLink: '',
-        blibliLink: ''
+        blibliLink: '',
+        specifications: [],
+        features: []
       });
     } catch (error) {
       console.log(error);
@@ -238,10 +244,34 @@ export default function Dashboard() {
                 <option value="">Select a category</option>
                 <option value="dapur">Dapur</option>
                 <option value="kamar-mandi">Kamar Mandi</option>
-                <option value="kamar-tidur">Kamar Tidur</option>
                 <option value="ruang-tamu">Ruang Tamu</option>
-              </select>
-            </div>
+              <option value="kamar-tidur">Kamar Tidur</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Specifications (one per line)</label>
+            <textarea
+              name="specifications"
+              value={productForm.specifications.join('\n')}
+              onChange={handleProductChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
+              rows={4}
+              placeholder="Enter specifications, one per line"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Features (one per line)</label>
+            <textarea
+              name="features"
+              value={productForm.features.join('\n')}
+              onChange={handleProductChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
+              rows={4}
+              placeholder="Enter features, one per line"
+            />
+          </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Image Link</label>

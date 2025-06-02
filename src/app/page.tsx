@@ -72,24 +72,28 @@ export default function Home() {
       description: 'Perlengkapan dan Peralatan Dapur',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Dapur.jpeg',
       alt: 'Dapur',
+      slug: 'dapur'
     },
     {
       title: 'Ruang Tamu',
       description: 'Perlengkapan dan Peralatan Ruang Tamu',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Living%20Room.jpeg',
       alt: 'Ruang Tamu',
+      slug: 'ruang-tamu'
     },
     {
       title: 'Kamar Tidur',
       description: 'Perlengkapan dan Peralatan Kamar Tidur',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Bedroom.png',
       alt: 'Kamar Tidur',
+      slug: 'kamar-tidur'
     },
     {
       title: 'Kamar Mandi',
       description: 'Perlengkapan dan Peralatan Kamar Mandi',
       image: 'https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Bathroom.jpeg',
       alt: 'Kamar Mandi',
+      slug: 'kamar-mandi'
     },
   ];
 
@@ -141,20 +145,22 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-12">Our Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((category, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
-                <div className="relative h-48">
-                  <Image
-                    src={category.image}
-                    alt={category.alt}
-                    fill
-                    className="object-cover"
-                  />
+              <Link href={`/product?category=${category.slug}`} key={index}>
+                <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+                  <div className="relative h-48">
+                    <Image
+                      src={category.image}
+                      alt={category.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
+                    <p className="text-gray-600">{category.description}</p>
+                  </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
-                  <p className="text-gray-600">{category.description}</p>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase';
-import { collection, query, getDocs, orderBy, limit, startAfter } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, limit, startAfter, where } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
@@ -20,21 +20,29 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
   const [hasMore, setHasMore] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const categories = [
+    { id: 'all', name: 'All Products' },
+    { id: 'dapur', name: 'Dapur' },
+    { id: 'ruang-tamu', name: 'Ruang Tamu' },
+    { id: 'kamar-mandi', name: 'Kamar Mandi' },
+    { id: 'kamar-tidur', name: 'Kamar Tidur' }
+  ];
 
   const fetchProducts = async (isInitial = false) => {
     try {
       let q;
-      if (isInitial) {
-        q = query(collection(db, 'products'), orderBy('createdAt', 'desc'), limit(20));
-      } else {
-        if (!lastVisible) return;
-        q = query(
-          collection(db, 'products'),
-          orderBy('createdAt', 'desc'),
-          startAfter(lastVisible),
-          limit(20)
-        );
-      }
+      const baseQuery = collection(db, 'products');
+      const constraints = [
+        orderBy('createdAt', 'desc'),
+        selectedCategory !== 'all' ? where('category', '==', selectedCategory) : null,
+        isInitial ? limit(20) : null,
+        !isInitial && lastVisible ? startAfter(lastVisible) : null,
+        !isInitial ? limit(20) : null
+      ].filter(Boolean);
+
+      q = query(baseQuery, ...constraints);
 
       const querySnapshot = await getDocs(q);
       const productList = querySnapshot.docs.map(doc => ({
@@ -66,6 +74,14 @@ export default function ProductPage() {
     fetchProducts();
   };
 
+  useEffect(() => {
+    setProducts([]);
+    setLastVisible(null);
+    setHasMore(true);
+    fetchProducts(true);
+  }, [selectedCategory]);
+
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -74,10 +90,26 @@ export default function ProductPage() {
     );
   }
 
+ 
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-12 text-foreground">Our Products</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-foreground">Our Products</h1>
+        
+        <div className="flex justify-center mb-12 space-x-4 overflow-x-auto pb-4">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-6 py-2 rounded-full transition-colors duration-200 ${selectedCategory === category.id
+                ? 'bg-foreground text-background'
+                : 'bg-background text-foreground border border-foreground/10 hover:bg-foreground/5'
+              }`}
+            >
+              {category.name}
+            </button>
+          ))}
+        </div>
         
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {products.map((product) => (
