@@ -13,6 +13,11 @@ interface ProductData {
   lazadaLink?: string;
   blibliLink?: string;
   youtubeLink?: string;
+  category?: string;
+  features?: string[];
+  specifications?: { [key: string]: string };
+  relatedProducts?: string[];
+  relatedArticles?: string[];
 }
 
 type Params = Promise<{ slug: string }>;
@@ -33,19 +38,27 @@ export async function generateMetadata(
 
   const product = querySnapshot.docs[0].data() as ProductData;
 
+  const metaDescription = `${product.name} - ${product.description}${product.features ? `. Fitur: ${product.features.join(', ')}` : ''}. Beli online di Shopee, TikTok Shop, Lazada, dan Blibli.`;
+
   return {
-    title: product.name,
-    description: product.description,
+    title: `${product.name} | Alat Rumah Tangga SNY`,
+    description: metaDescription,
+    keywords: [...(product.features || []), product.category, 'alat rumah tangga', 'peralatan rumah'].filter(Boolean).join(', '),
     openGraph: {
       title: product.name,
-      description: product.description,
+      description: metaDescription,
       images: product.imageLink ? [product.imageLink] : [],
+      type: 'website',
+      siteName: 'Alat Rumah Tangga SNY',
     },
     twitter: {
       card: 'summary_large_image',
       title: product.name,
-      description: product.description,
+      description: metaDescription,
       images: product.imageLink ? [product.imageLink] : [],
+    },
+    alternates: {
+      canonical: `https://alatrumahtanggasny.com/product/${slug}`,
     },
   };
 }
@@ -67,6 +80,19 @@ export default async function ProductPage(
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+        {product.category && (
+          <nav className="mb-8 text-sm breadcrumbs" aria-label="breadcrumb">
+            <ol className="flex items-center space-x-2">
+              <li><a href="/" className="text-foreground/60 hover:text-foreground">Home</a></li>
+              <li><span className="text-foreground/60 mx-2">/</span></li>
+              <li><a href="/product" className="text-foreground/60 hover:text-foreground">Products</a></li>
+              <li><span className="text-foreground/60 mx-2">/</span></li>
+              <li><a href={`/product`} className="text-foreground/60 hover:text-foreground">{product.category}</a></li>
+              <li><span className="text-foreground/60 mx-2">/</span></li>
+              <li><span className="text-foreground" aria-current="page">{product.name}</span></li>
+            </ol>
+          </nav>
+        )}
         <div className="bg-background rounded-xl shadow-lg overflow-hidden border border-foreground/10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {product.imageLink && (
@@ -85,6 +111,31 @@ export default async function ProductPage(
               <div>
                 <h1 className="text-4xl font-bold text-foreground mb-4">{product.name}</h1>
                 <p className="text-foreground/80 text-lg mb-8 leading-relaxed">{product.description}</p>
+                
+                {product.features && product.features.length > 0 && (
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-semibold text-foreground mb-4">Fitur Utama</h2>
+                    <ul className="list-disc list-inside space-y-2">
+                      {product.features.map((feature, index) => (
+                        <li key={index} className="text-foreground/80">{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {product.specifications && Object.keys(product.specifications).length > 0 && (
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-semibold text-foreground mb-4">Spesifikasi</h2>
+                    <dl className="grid grid-cols-1 gap-2">
+                      {Object.entries(product.specifications).map(([key, value]) => (
+                        <div key={key} className="grid grid-cols-2">
+                          <dt className="text-foreground/60">{key}</dt>
+                          <dd className="text-foreground">{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -146,6 +197,50 @@ export default async function ProductPage(
             </div>
           </div>
         </div>
+
+        {(product.relatedProducts || product.relatedArticles) && (
+          <div className="mt-16 space-y-12">
+            {product.relatedProducts && product.relatedProducts.length > 0 && (
+              <section>
+                <h2 className="text-3xl font-bold text-foreground mb-8">Produk Terkait</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {product.relatedProducts.map((productSlug, index) => (
+                    <a
+                      key={index}
+                      href={`/product/${productSlug}`}
+                      className="block bg-background rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden border border-foreground/10"
+                    >
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold text-foreground mb-2">{productSlug.replace(/-/g, ' ')}</h3>
+                        <span className="text-foreground/60">View Details →</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {product.relatedArticles && product.relatedArticles.length > 0 && (
+              <section>
+                <h2 className="text-3xl font-bold text-foreground mb-8">Artikel Terkait</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {product.relatedArticles.map((articleSlug, index) => (
+                    <a
+                      key={index}
+                      href={`/article/${articleSlug}`}
+                      className="block bg-background rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden border border-foreground/10"
+                    >
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold text-foreground mb-2">{articleSlug.replace(/-/g, ' ')}</h3>
+                        <span className="text-foreground/60">Baca Selengkapnya →</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
