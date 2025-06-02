@@ -22,6 +22,14 @@ export default function ProductPage() {
   const [hasMore, setHasMore] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, []);
+
   const categories = [
     { id: 'all', name: 'All Products' },
     { id: 'dapur', name: 'Dapur' },
@@ -102,7 +110,16 @@ export default function ProductPage() {
           {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
+              onClick={() => {
+                setSelectedCategory(category.id);
+                const url = new URL(window.location.href);
+                if (category.id === 'all') {
+                  url.searchParams.delete('category');
+                } else {
+                  url.searchParams.set('category', category.id);
+                }
+                window.history.pushState({}, '', url);
+              }}
               className={`px-6 py-2 rounded-full transition-colors duration-200 ${selectedCategory === category.id
                 ? 'bg-foreground text-background'
                 : 'bg-background text-foreground border border-foreground/10 hover:bg-foreground/5'
