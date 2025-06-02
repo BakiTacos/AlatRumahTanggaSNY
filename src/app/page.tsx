@@ -142,7 +142,7 @@ export default function Home() {
       {/* Categories Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Categories</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Kategori Produk</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((category, index) => (
               <Link href={`/product?category=${category.slug}`} key={index}>
@@ -170,9 +170,9 @@ export default function Home() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-12">
-            <h2 className="text-3xl font-bold">Latest Articles</h2>
+            <h2 className="text-3xl font-bold">Artikel Terbaru</h2>
             <Link href="/article" className="text-blue-600 hover:text-blue-800 font-medium">
-              View All Articles
+              Lihat semua Artikel
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

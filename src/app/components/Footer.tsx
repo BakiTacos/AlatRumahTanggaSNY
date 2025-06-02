@@ -8,16 +8,16 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">SNY STORE</h3>
             <p className="text-gray-300">
-              Quality home appliances for your everyday needs.
+              Kualitas terbaik untuk memenuhi kebutuhan anda.
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-4">Contact Us</h3>
+            <h3 className="text-xl font-bold mb-4">Kontak Kami</h3>
             <p className="text-gray-300">Email: sny.osho@gmail.com</p>
-            <p className="text-gray-300">Address: Benda, Kota Tangerang</p>
+            <p className="text-gray-300">Alamat: Benda, Kota Tangerang</p>
           </div>
               <div>
-              <h3 className="text-xl font-bold mb-4">Our Social Medias</h3>
+              <h3 className="text-xl font-bold mb-4">Sosial Media Kami</h3>
               <div className="flex space-x-4">
                 <a href="https://www.youtube.com/@snystore" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="YouTube">
                   <Image

@@ -88,7 +88,7 @@ export default async function ProductPage(
               <li><span className="text-foreground/60 mx-2">/</span></li>
               <li><Link href="/product" className="text-foreground/60 hover:text-foreground">Products</Link></li>
               <li><span className="text-foreground/60 mx-2">/</span></li>
-              <li><Link href={`/product`} className="text-foreground/60 hover:text-foreground">{product.category}</Link></li>
+              <li><Link href={`/product?category=${product.category?.toLowerCase().replace(/ /g, '-')}`} className="text-foreground/60 hover:text-foreground">{product.category}</Link></li>
               <li><span className="text-foreground/60 mx-2">/</span></li>
               <li><span className="text-foreground" aria-current="page">{product.name}</span></li>
             </ol>
@@ -147,7 +147,7 @@ export default async function ProductPage(
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#EE4D2D] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    <span className="font-semibold">Buy on Shopee</span>
+                    <span className="font-semibold">Beli di Shopee</span>
                   </Link>
                 )}
                 
@@ -158,7 +158,7 @@ export default async function ProductPage(
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#000000] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    <span className="font-semibold">Buy on TikTok Shop</span>
+                    <span className="font-semibold">Beli di TikTok Shop</span>
                   </a>
                 )}
                 
@@ -169,7 +169,7 @@ export default async function ProductPage(
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#0F146D] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    <span className="font-semibold">Buy on Lazada</span>
+                    <span className="font-semibold">Beli di Lazada</span>
                   </a>
                 )}
                 
@@ -180,7 +180,7 @@ export default async function ProductPage(
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#0095DA] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    <span className="font-semibold">Buy on Blibli</span>
+                    <span className="font-semibold">Beli di Blibli</span>
                   </a>
                 )}
                 

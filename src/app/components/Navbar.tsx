@@ -72,7 +72,7 @@ export default function Navbar() {
                   onClick={() => setProductsDropdown((prev) => !prev)}
                   className="px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
                 >
-                  Products
+                  Produk
                   <svg className="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -80,7 +80,7 @@ export default function Navbar() {
                 {productsDropdown && (
                   <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                     <div className="py-1">
-                      {['Kitchen Appliances', 'Living Room', 'Bedroom', 'Bathroom'].map((label) => (
+                      {['Dapur', 'Ruang Tamu', 'Kamar Tidur', 'Kamar Mandi'].map((label) => (
                         <Link
                           key={label}
                           href="/product"
@@ -101,20 +101,20 @@ export default function Navbar() {
                   isActive('/article') ? 'text-[#A5D6A7] font-semibold' : 'text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50'
                 }`}
               >
-                Articles
+                Artikel
               </Link>
 
               <Link
                 href="/#about-us"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                About Us
+                Tentang Kami
               </Link>
               <Link
                 href="/#footer"
                 className="text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                Contact
+                Kontak
               </Link>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function Navbar() {
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Products
+              Produk
             </Link>
             <Link
               href="/article"
@@ -146,21 +146,21 @@ export default function Navbar() {
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              Articles
+              Artikel
             </Link>
             <Link
               href="/#about-us"
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
-              About Us
+              Tentang Kami
             </Link>
             <Link
               href="/#footer"
               className="block px-3 py-2 rounded-md text-base font-medium text-[#333333] hover:text-[#A5D6A7] hover:bg-gray-50"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Contact
+              Kontak
             </Link>
           </div>
         </div>

@@ -96,7 +96,7 @@ export default function ProductPage() {
   return (
     <div className="min-h-screen bg-background py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8 text-foreground">Our Products</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-foreground">Produk</h1>
         
         <div className="flex justify-center mb-12 space-x-4 overflow-x-auto pb-4">
           {categories.map((category) => (
