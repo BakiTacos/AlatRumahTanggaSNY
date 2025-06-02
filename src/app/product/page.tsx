@@ -32,7 +32,6 @@ export default function ProductPage() {
 
   const fetchProducts = async (isInitial = false) => {
     try {
-      let q;
       const baseQuery = collection(db, 'products');
       const constraints = [
         orderBy('createdAt', 'desc'),
@@ -42,7 +41,7 @@ export default function ProductPage() {
         !isInitial ? limit(20) : null
       ].filter(Boolean);
 
-      q = query(baseQuery, ...constraints);
+      const q = query(baseQuery, ...constraints);
 
       const querySnapshot = await getDocs(q);
       const productList = querySnapshot.docs.map(doc => ({
