@@ -33,28 +33,33 @@ export default function ProductPage() {
   const fetchProducts = async (isInitial = false) => {
     try {
       const baseQuery = collection(db, 'products');
-      const constraints: QueryConstraint[] = [
+  
+      const rawConstraints = [
         orderBy('createdAt', 'desc'),
         selectedCategory !== 'all' ? where('category', '==', selectedCategory) : null,
         isInitial ? limit(20) : null,
         !isInitial && lastVisible ? startAfter(lastVisible) : null,
-        !isInitial ? limit(20) : null
-      ].filter((c): c is QueryConstraint => c !== null);
-
+        !isInitial ? limit(20) : null,
+      ];
+  
+      const constraints: QueryConstraint[] = rawConstraints.filter(
+        (c): c is QueryConstraint => c !== null
+      );
+  
       const q = query(baseQuery, ...constraints);
-
       const querySnapshot = await getDocs(q);
-      const productList = querySnapshot.docs.map(doc => ({
+  
+      const productList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as Product[];
-
+  
       if (isInitial) {
         setProducts(productList);
       } else {
-        setProducts(prev => [...prev, ...productList]);
+        setProducts((prev) => [...prev, ...productList]);
       }
-
+  
       setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
       setHasMore(querySnapshot.docs.length === 20);
     } catch (error) {
