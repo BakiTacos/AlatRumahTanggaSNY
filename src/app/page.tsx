@@ -139,6 +139,34 @@ export default function Home() {
         </button>
       </section>
 
+      {/* About Section */}
+      <section id="about-us" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+    
+    {/* Text Section */}
+    <div>
+      <h2 className="text-3xl font-bold text-gray-800 mb-6">Tentang Kami</h2>
+      <p className="text-lg text-gray-600 leading-relaxed">
+        Kami adalah tim yang berdedikasi untuk memberikan solusi terbaik bagi kebutuhan Anda. 
+        Dengan pengalaman, komitmen, dan semangat kolaborasi, kami percaya bahwa kepercayaan dibangun 
+        melalui integritas, kualitas, dan komunikasi yang transparan. Setiap langkah kami diambil dengan 
+        tujuan untuk membantu Anda tumbuh dan berkembang secara berkelanjutan.
+      </p>
+    </div>
+
+    {/* Image Section */}
+    <div className="relative w-full h-64 md:h-80 lg:h-96">
+          <Image 
+            src="https://raw.githubusercontent.com/BakiTacos/image-host/refs/heads/main/AlatRumahTanggaSNY/Categories/Dapur.jpeg"
+            alt="Tentang Kami"
+            fill
+            className="object-cover rounded-lg shadow-lg"
+          />
+        </div>
+
+  </div>
+</section>
+
       {/* Categories Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -165,6 +193,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      
 
       {/* Articles Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
