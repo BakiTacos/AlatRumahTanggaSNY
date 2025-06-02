@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ProductData {
   name: string;
@@ -83,11 +84,11 @@ export default async function ProductPage(
         {product.category && (
           <nav className="mb-8 text-sm breadcrumbs" aria-label="breadcrumb">
             <ol className="flex items-center space-x-2">
-              <li><a href="/" className="text-foreground/60 hover:text-foreground">Home</a></li>
+              <li><Link href="/" className="text-foreground/60 hover:text-foreground">Home</Link></li>
               <li><span className="text-foreground/60 mx-2">/</span></li>
-              <li><a href="/product" className="text-foreground/60 hover:text-foreground">Products</a></li>
+              <li><Link href="/product" className="text-foreground/60 hover:text-foreground">Products</Link></li>
               <li><span className="text-foreground/60 mx-2">/</span></li>
-              <li><a href={`/product`} className="text-foreground/60 hover:text-foreground">{product.category}</a></li>
+              <li><Link href={`/product`} className="text-foreground/60 hover:text-foreground">{product.category}</Link></li>
               <li><span className="text-foreground/60 mx-2">/</span></li>
               <li><span className="text-foreground" aria-current="page">{product.name}</span></li>
             </ol>
