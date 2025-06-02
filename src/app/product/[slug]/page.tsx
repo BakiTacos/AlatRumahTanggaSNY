@@ -141,14 +141,14 @@ export default async function ProductPage(
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {product.shopeeLink && (
-                  <a
+                  <Link
                     href={product.shopeeLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#EE4D2D] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
                     <span className="font-semibold">Buy on Shopee</span>
-                  </a>
+                  </Link>
                 )}
                 
                 {product.tiktokshopLink && (
