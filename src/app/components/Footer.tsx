@@ -13,6 +13,7 @@ export default function Footer() {
           </div>
           <div>
             <h3 className="text-xl font-bold mb-4">Kontak Kami</h3>
+            <p className="text-gray-300">Phone: +6282114721104</p>
             <p className="text-gray-300">Email: sny.osho@gmail.com</p>
             <p className="text-gray-300">Alamat: Benda, Kota Tangerang</p>
           </div>
