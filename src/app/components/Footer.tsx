@@ -20,6 +20,15 @@ export default function Footer() {
               <div>
               <h3 className="text-xl font-bold mb-4">Sosial Media Kami</h3>
               <div className="flex space-x-4">
+                <a href="https://wa.me/6282114721104" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="Tiktok">
+                  <Image
+                    src="https://raw.githubusercontent.com/BakiTacos/image-host/1f662a276674c9b403cd2db21c548222f5bcba93/AlatRumahTanggaSNY/SVG/whatsapp.svg"
+                    alt="whatsapp"
+                    width={200}
+                    height={100}
+                    className="w-6 h-6"
+                  />
+                </a>
                 <a href="https://www.youtube.com/@snystore" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="YouTube">
                   <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/20072cf11e73fbec3ebc67a98ecacb015393329d/AlatRumahTanggaSNY/SVG/youtube.svg"
