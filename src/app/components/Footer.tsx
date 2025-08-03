@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">SNY STORE</h3>
+            <h3 className="text-xl font-bold mb-4">Simple and Yours</h3>
             <p className="text-gray-300">
               Kualitas terbaik untuk memenuhi kebutuhan anda.
             </p>
@@ -31,7 +31,7 @@ export default function Footer() {
                 <a href="shopee.co.id/sny_onlineshop" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="Shopee">
                   <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/cffdd38bff910a592cec800b556157ed550d6ef3/AlatRumahTanggaSNY/SVG/shopee.svg"
-                    alt="YouTube"
+                    alt="shopee"
                     width={200}
                     height={100}
                     className="w-6 h-6"
@@ -40,7 +40,7 @@ export default function Footer() {
                 <a href="https://www.tokopedia.com/snyonlineshop" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-red-500" aria-label="Tiktok">
                   <Image
                     src="https://raw.githubusercontent.com/BakiTacos/image-host/cffdd38bff910a592cec800b556157ed550d6ef3/AlatRumahTanggaSNY/SVG/tiktok.svg"
-                    alt="YouTube"
+                    alt="tiktok"
                     width={200}
                     height={100}
                     className="w-6 h-6"
@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-300">
-          <p>&copy; {new Date().getFullYear()} SNY STORE. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Simple and Yours.</p>
         </div>
       </div>
     </footer>

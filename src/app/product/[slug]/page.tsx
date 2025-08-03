@@ -12,11 +12,11 @@ interface ProductData {
   shopeeLink?: string;
   tiktokshopLink?: string;
   lazadaLink?: string;
-  blibliLink?: string;
+  tokopediaLink?: string;
   youtubeLink?: string;
   category?: string;
   features?: string[];
-  specifications?: { [key: string]: string };
+  specifications?: string;
   relatedProducts?: string[];
   relatedArticles?: string[];
 }
@@ -112,6 +112,7 @@ export default async function ProductPage(
               <div>
                 <h1 className="text-4xl font-bold text-foreground mb-4">{product.name}</h1>
                 <p className="text-foreground/80 text-lg mb-8 leading-relaxed">{product.description}</p>
+                <p className="text-foreground/80 text-lg mb-8 leading-relaxed">{product.specifications}</p>
                 
                 {product.features && product.features.length > 0 && (
                   <div className="mb-8">
@@ -123,22 +124,11 @@ export default async function ProductPage(
                     </ul>
                   </div>
                 )}
-
-                {product.specifications && Object.keys(product.specifications).length > 0 && (
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-semibold text-foreground mb-4">Spesifikasi</h2>
-                    <dl className="grid grid-cols-1 gap-2">
-                      {Object.entries(product.specifications).map(([key, value]) => (
-                        <div key={key} className="grid grid-cols-2">
-                          <dt className="text-foreground/60">{key}</dt>
-                          <dd className="text-foreground">{value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
-                )}
               </div>
               
+              {/* 
+              Buttons of Links leading to E-commerce, Youtube.
+              */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {product.shopeeLink && (
                   <Link
@@ -173,14 +163,14 @@ export default async function ProductPage(
                   </a>
                 )}
                 
-                {product.blibliLink && (
+                {product.tokopediaLink && (
                   <a
-                    href={product.blibliLink}
+                    href={product.tokopediaLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center px-6 py-3 bg-[#0095DA] text-white rounded-lg hover:opacity-90 transition-opacity"
+                    className="flex items-center justify-center px-6 py-3 bg-[#42B549] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
-                    <span className="font-semibold">Beli di Blibli</span>
+                    <span className="font-semibold">Beli di Tokopedia</span>
                   </a>
                 )}
                 
@@ -191,7 +181,7 @@ export default async function ProductPage(
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#FF0000] text-white rounded-lg hover:opacity-90 transition-opacity col-span-full"
                   >
-                    <span className="font-semibold">Watch on YouTube</span>
+                    <span className="font-semibold">Lihat Produk di Youtube</span>
                   </a>
                 )}
               </div>

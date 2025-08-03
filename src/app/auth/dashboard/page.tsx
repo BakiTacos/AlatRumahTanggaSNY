@@ -14,7 +14,7 @@ interface ProductForm {
   tiktokshopLink: string;
   shopeeLink: string;
   lazadaLink: string;
-  blibliLink: string;
+  tokopediaLink: string;
   specifications: string;
   features: string;
 }
@@ -49,7 +49,7 @@ export default function Dashboard() {
     tiktokshopLink: '',
     shopeeLink: '',
     lazadaLink: '',
-    blibliLink: '',
+    tokopediaLink: '',
     specifications: '',
     features: '',
   });
@@ -112,7 +112,7 @@ export default function Dashboard() {
         tiktokshopLink: '',
         shopeeLink: '',
         lazadaLink: '',
-        blibliLink: '',
+        tokopediaLink: '',
         specifications: '',
         features: ''
       });
@@ -257,7 +257,7 @@ export default function Dashboard() {
               onChange={handleProductChange}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
               rows={4}
-              placeholder="Enter specifications, one per line"
+              placeholder="Enter specifications size/others"
             />
           </div>
 
@@ -333,8 +333,8 @@ export default function Dashboard() {
               <label className="block text-sm font-medium text-gray-700">Blibli Link</label>
               <input
                 type="url"
-                name="blibliLink"
-                value={productForm.blibliLink}
+                name="tokopediaLink"
+                value={productForm.tokopediaLink}
                 onChange={handleProductChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
               />
