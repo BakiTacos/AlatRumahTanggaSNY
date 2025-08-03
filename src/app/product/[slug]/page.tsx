@@ -182,7 +182,7 @@ export default async function ProductPage(
                     rel="noopener noreferrer"
                     className="flex items-center justify-center px-6 py-3 bg-[#42B549] text-white rounded-lg hover:opacity-90 transition-opacity col-span-full"
                   >
-                    <span className="font-semibold">Contact by Whatsapp</span>
+                    <span className="font-semibold">Beli melalui Whatsapp</span>
                   </a>
                 )}
                 
