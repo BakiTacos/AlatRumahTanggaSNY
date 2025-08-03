@@ -31,7 +31,7 @@ export default function RootLayout({
     "@type": "Organization",
     "name": "SNY Store",
     "url": "https://alat-rumah-tangga-sny.vercel.app",
-    "logo": "https://alat-rumah-tangga-sny.vercel.app/logo.png", // Replace with your actual logo URL
+    "logo": "https://github.com/BakiTacos/image-host/blob/main/AlatRumahTanggaSNY/Logo/main-logo.png?raw=true", // Replace with your actual logo URL
     "sameAs": [
       "https://shopee.co.id/shop-name",
       "https://www.tiktok.com/@shop-name",
