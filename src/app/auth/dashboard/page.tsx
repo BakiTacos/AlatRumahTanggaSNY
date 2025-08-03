@@ -333,11 +333,22 @@ export default function Dashboard() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Blibli Link</label>
+              <label className="block text-sm font-medium text-gray-700">Tokopedia Link</label>
               <input
                 type="url"
                 name="tokopediaLink"
                 value={productForm.tokopediaLink}
+                onChange={handleProductChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Whatsapp Link</label>
+              <input
+                type="url"
+                name="whatsappLink"
+                value={productForm.whatsappLink}
                 onChange={handleProductChange}
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#A5D6A7] focus:border-[#A5D6A7]"
               />
