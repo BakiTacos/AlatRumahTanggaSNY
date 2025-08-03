@@ -15,6 +15,7 @@ interface ProductForm {
   shopeeLink: string;
   lazadaLink: string;
   tokopediaLink: string;
+  whatsappLink: string;
   specifications: string;
   features: string;
 }
@@ -50,6 +51,7 @@ export default function Dashboard() {
     shopeeLink: '',
     lazadaLink: '',
     tokopediaLink: '',
+    whatsappLink: '',
     specifications: '',
     features: '',
   });
@@ -113,6 +115,7 @@ export default function Dashboard() {
         shopeeLink: '',
         lazadaLink: '',
         tokopediaLink: '',
+        whatsappLink: '',
         specifications: '',
         features: ''
       });

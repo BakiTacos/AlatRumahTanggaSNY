@@ -13,6 +13,7 @@ interface ProductData {
   tiktokshopLink?: string;
   lazadaLink?: string;
   tokopediaLink?: string;
+  whatsappLink?: string;
   youtubeLink?: string;
   category?: string;
   features?: string[];
@@ -171,6 +172,17 @@ export default async function ProductPage(
                     className="flex items-center justify-center px-6 py-3 bg-[#42B549] text-white rounded-lg hover:opacity-90 transition-opacity"
                   >
                     <span className="font-semibold">Beli di Tokopedia</span>
+                  </a>
+                )}
+
+                {product.whatsappLink && (
+                  <a
+                    href={product.whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center px-6 py-3 bg-[#42B549] text-white rounded-lg hover:opacity-90 transition-opacity col-span-full"
+                  >
+                    <span className="font-semibold">Contact by Whatsapp</span>
                   </a>
                 )}
                 
